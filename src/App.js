@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import "./App.css";
+import Nav from "./components/Nav";
+import FetchPlanets from "./components/FetchPlanets.js";
+import Planets from "./components/Planets.js";
+import FavPlanets from "./components/FavPlanets";
+import { PlanetProvider } from "./components/PlanetContext";
 
-function App() {
+export default function App() {
+  const [selection, setSelection] = useState("");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PlanetProvider>
+      <Router>
+
+        <div className="App">
+          <Nav />
+          <FetchPlanets />
+          <Switch>
+            <Route exact path="/"><Planets /></Route>
+            <Route path="/favs"><FavPlanets /></Route>
+          </Switch>
+
+        </div>
+      </Router>
+    </PlanetProvider >
   );
 }
-
-export default App;
